@@ -8,9 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-lite.min.js"></script>
 
     <title>SB Admin 2 - Dashboard</title>
 
@@ -53,26 +50,20 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="{{route('admin.dashboard')}}">
+                <a class="nav-link" href="{{route('penulis.dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{route('kategori.index')}}">
-        <i class="fas fa-fw fa-chart-area"></i>
-        <span>Kategori</span></a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{route('berita.index')}}">
-        <i class="fas fa-fw fa-table"></i>
-        <span>berita</span></a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="{{route('user.index')}}">
-        <i class="fas fa-fw fa-user"></i>
-    <span>User</span></a>
-</li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('kategori.index')}}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Kategori</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('penulis.berita.index')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>berita</span></a>
+            </li>
             
         </ul>
         <!-- End of Sidebar -->
@@ -253,4 +244,3 @@
 </body>
 
 </html>
-    
