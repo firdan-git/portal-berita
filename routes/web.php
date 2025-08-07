@@ -48,7 +48,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
 Route::middleware(['auth', 'role:penulis'])->prefix('penulis')->group(function () {
     Route::get('/dashboard', [PenulisController::class, 'dashboard'])->name('penulis.dashboard');
 
-    Route::resource('kategori', KategoriPenulisController::class);
+    Route::get('kategori', [KategoriPenulisController::class,'index'])->name('penulis.kategori.index');
     
     Route::get('berita', [BeritaPenulisController::class, 'index'])->name('penulis.berita.index');
     Route::get('berita/create', [BeritaPenulisController::class, 'create'])->name('penulis.berita.create');
@@ -57,7 +57,16 @@ Route::middleware(['auth', 'role:penulis'])->prefix('penulis')->group(function (
     Route::put('berita/{berita}', [BeritaPenulisController::class, 'update'])->name('penulis.berita.update');
     Route::delete('berita/{berita}', [BeritaPenulisController::class, 'destroy'])->name('penulis.berita.destroy');
 });
-
+Route::get('/dashboard', function () {
+   $user = Auth::user();
+    if ($user->role === 'admin') {
+        return redirect('/admin/dashboard');
+    } elseif ($user->role === 'penulis') {
+        return redirect('/penulis/dashboard');
+    } else {
+        return redirect('/'); 
+    }
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 require __DIR__.'/auth.php';

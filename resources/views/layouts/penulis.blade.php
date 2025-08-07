@@ -55,7 +55,7 @@
                     <span>Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('kategori.index')}}">
+                <a class="nav-link" href="{{route('penulis.kategori.index')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Kategori</span></a>
             </li>
