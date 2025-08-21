@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\webcontroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KategoriController;
@@ -21,10 +22,13 @@ use App\Http\Controllers\BeritaPenulisController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::resource('user', UserController::class);
+route::get('/', [webcontroller::class, 'index'])->name('web.index');
+route::get('/berita/{slug}', [webcontroller::class, 'show'])->name('web.show');
+route::get('/kategori/{id}', [webcontroller::class, 'kategori'])->name('web.kategori');
+route::get('/kategorih', [webcontroller::class, 'kategori'])->name('user.index');
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
