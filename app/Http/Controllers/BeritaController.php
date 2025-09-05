@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Berita;
 use App\Models\Kategori;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 
 class BeritaController extends Controller
 {
-    public function index()
-{
-    $berita = Auth::user()->role === 'admin'
-        ? Berita::latest()->get()
-        : Berita::where('user_id', Auth::id())->latest()->get();
+    
 
+public function index()
+{
+    $berita = Auth::user()->role === 'admin' ? Berita::latest()->get() : Berita::where('user_id', Auth::id())->latest()->get();
     return view('admin.berita.index', compact('berita'));
 }
 
@@ -49,9 +47,10 @@ public function store(Request $request)
     return redirect()->route('berita.index')->with('success', 'Berita berhasil ditambahkan.');
 }
 
-public function edit(Berita $berita)
+public function edit($id)
 {
     $kategori = Kategori::all();
+    $berita = Berita::findOrFail($id);
     return view('admin.berita.edit', compact('berita', 'kategori'));
 }
 
@@ -69,7 +68,7 @@ public function update(Request $request, Berita $berita)
         $berita->gambar = $path;
     }
 
-    $berita->update([
+        $berita->update([
         'judul' => $request->judul,
         'slug' => Str::slug($request->judul),
         'isi' => $request->isi,
@@ -84,4 +83,6 @@ public function destroy(Berita $berita)
     $berita->delete();
     return redirect()->route('berita.index')->with('success', 'Berita dihapus.');
 }
+
+
 }

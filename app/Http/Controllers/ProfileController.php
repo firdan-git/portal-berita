@@ -9,17 +9,43 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+use function Laravel\Prompts\alert;
+
 class ProfileController extends Controller
 {
+
+    
+    public function show()
+    {
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            return view('profile.show', compact('user'));
+        }elseif($user->role === 'penulis'){
+            return view('profile.shaw', compact('user'));
+        }else{
+            return Redirect::to('/');
+
+    }
+
+}
+
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = $request->user();
+
+        if ($user->role === 'admin') {
+            return view('profile.edit', compact('user'));
+        }elseif($user->role === 'penulis'){
+            return view('profile.editt', compact('user'));
+        }else{
+
+            abort(403);
     }
+}
 
     /**
      * Update the user's profile information.
@@ -34,7 +60,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.show')->with('Success', 'Akun berhasil diperbarui.');
     }
 
     /**

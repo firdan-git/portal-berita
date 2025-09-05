@@ -8,18 +8,24 @@ use Illuminate\Database\Eloquent\Model;
 class Berita extends Model
 {
     use HasFactory;
-    protected $table = 'beritars';
-    protected $fillable = [
+    protected $fillable =
+    [
         'judul',
         'slug',
         'isi',
         'gambar',
         'kategori_id',
         'user_id',
+        'views'
     ];
 
-    public function kategori()
-    {
+     public function kategori() {
         return $this->belongsTo(Kategori::class, 'kategori_id');
-        }
+    }
+    
+    public function komentars()
+{
+    return $this->hasMany(Komentar::class);
+}
+
 }

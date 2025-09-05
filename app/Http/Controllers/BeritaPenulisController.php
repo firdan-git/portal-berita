@@ -24,7 +24,6 @@ class BeritaPenulisController extends Controller
 
     public function store(Request $request)
     {
-        
         $request->validate([
             'judul' => 'required',
             'isi' => 'required',

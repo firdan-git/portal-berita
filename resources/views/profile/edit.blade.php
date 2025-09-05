@@ -1,29 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.admin')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@section('content')
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+<div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                  <h1>Settings</h1>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-        </div>
-    </div>
-</x-app-layout>
+                           
+
+                            <form action="{{route('profile.update')}}" method="POST">
+                                @csrf
+                                @method('PATCH')
+
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Nama :</label>
+                                    <input type="text" value="{{$user->name}}" name="name"  class="form-control">
+
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Email address :</label>
+                                <input type="text" value="{{$user->email}}" name="email"  class="form-control">
+
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Password</label>
+                                <input type="password" value="........" name="password"  class="form-control">
+
+                                </div>
+                                <div class="">
+                                  <button onclick="return confirm('Anda Yakin?')" class="btn btn-primary" type="submit">Ubah</button>
+                                    </div>
+                            </form>  
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+@endsection

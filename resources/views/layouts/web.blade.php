@@ -1,442 +1,198 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Berita</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --dark-color: #34495e;
-            --light-color: #ecf0f1;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-        }
-        
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.8rem;
-        }
-        
-        .navbar {
-            background-color: var(--primary-color) !important;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .nav-link {
-            font-weight: 500;
-            padding: 0.5rem 1rem !important;
-        }
-        
-        .hero-section {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 2rem;
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://placehold.co/1920x1080');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .hero-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .news-card {
-            transition: transform 0.3s ease;
-            margin-bottom: 20px;
-            height: 100%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .news-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-        }
-        
-        .card-img-top {
-            height: 200px;
-            width: 100%;
-            object-fit: cover;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-        }
-        
-        .category-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .news-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark-color);
-        }
-        
-        .news-meta {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-bottom: 0.5rem;
-        }
-        
-        .news-excerpt {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 1rem;
-        }
-        
-        .popular-posts {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 30px;
-        }
-        
-        .sidebar-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--secondary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .trending-post {
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .trending-post:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-        
-        .trending-post h6 {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .trending-post p {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-            margin-bottom: 0;
-        }
-        
-        .categories-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .categories-list li {
-            margin-bottom: 10px;
-        }
-        
-        .categories-list a {
-            color: #555;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: block;
-            padding: 8px 10px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-        }
-        
-        .categories-list a:hover {
-            color: var(--secondary-color);
-            background-color: #e9ecef;
-        }
-        
-        .categories-list i {
-            margin-right: 8px;
-            color: var(--secondary-color);
-        }
-        
-        .footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 3rem;
-        }
-        
-        .footer-title {
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .footer-links li {
-            margin-bottom: 0.8rem;
-        }
-        
-        .footer-links a {
-            color: var(--light-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: var(--secondary-color);
-        }
-        
-        .social-icons a {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255,255,255,0.1);
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 40px;
-            margin-right: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-        }
-        
-        .copyright {
-            background-color: rgba(0,0,0,0.1);
-            padding: 1rem 0;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        
-        .search-box {
-            position: relative;
-            margin-bottom: 20px;
-        }
-        
-        .search-box input {
-            padding-right: 40px;
-            border-radius: 20px;
-        }
-        
-        .search-box button {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            background: var(--secondary-color);
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            padding: 0;
-        }
-        
-        @media (max-width: 767.98px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-            
-            .navbar-brand {
-                font-size: 1.4rem;
-            }
-        }
-        
-        /* Animation */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fade {
-            animation: fadeIn 0.5s ease forwards;
-        }
-        
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-    </style>
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">PortalBerita</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Beranda</a>
-                    </li>
-                     @php
-                            $kategoriList = \App\Models\Kategori::all();
-                        @endphp
-                        @foreach ($kategoriList as $kat)
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('web.kategori', $kat->id) }}">{{ $kat->nama }}</a>
-                        </li>
-                        @endforeach
-                </ul>
-                <form class="d-flex ms-lg-3 mt-3 mt-lg-0">
-                    <input class="form-control me-2" type="search" placeholder="Cari berita..." aria-label="Search">
-                    <button class="btn btn-outline-light" type="submit">Cari</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+<!doctype html>
+<html class="no-js" lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>News HTML-5 Template </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/demo/img/favicon.ico')}}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container text-center">
-            <h1 class="hero-title animate-fade">Portal Berita Terkini dan Terpercaya</h1>
-            <p class="hero-subtitle animate-fade delay-1">Dapatkan informasi terupdate seputar politik, ekonomi, teknologi dan hiburan</p>
-            <button class="btn btn-primary btn-lg animate-fade delay-2">Jelajahi Berita</button>
-        </div>
-    </section>
+		<!-- CSS here -->
+            <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/ticker-style.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/flaticon.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/slicknav.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/fontawesome-all.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/themify-icons.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/slick.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+   </head>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <!-- Main Articles -->
-            <div class="col-lg-8">
-                <h3 class="mb-4">Berita Terbaru</h3>
-                
-                
-                   @yield('content')
-                
-            </div>
-            
-            <!-- Sidebar -->
-            <div class="col-lg-4">
-                <!-- Search Box -->
-                <div class="search-box">
-                    <input type="text" class="form-control" placeholder="Cari berita...">
-                    <button type="submit" class="btn btn-sm"><i class="fas fa-search"></i></button>
-                </div>
-                
-                <!-- Last News -->
-                <div class="popular-posts">
-                    <h5 class="sidebar-title">Berita Terbaru</h5>
-                    
-                   @php
-                            $kategoriList = \App\Models\Kategori::all();
-                        @endphp
-                        @foreach ($kategoriList as $kat)
-                        <li class="nav-item">
-                            <div class="trending-post">
-                                <h6><a href="{{ route('web.kategori', $kat->id) }}" class="text-decoration-none">{{ $kat->nama }}</a></h6>
-                                <p><i class="far fa-eye"></i> 9.3k views</p>
+   <body>
+       
+     <header>
+        <!-- Header Start -->
+       <div class="header-area">
+            <div class="main-header ">
+                <div class="header-top black-bg d-none d-md-block">
+                   <div class="container">
+                       <div class="col-xl-12">
+                            <div class="row d-flex justify-content-between align-items-center">
+                                <div class="header-info-left">
+                                    <ul>     
+                                        <li><img src="assets/img/icon/header_icon1.png" alt="">34ºc, Cerah </li>
+                                        <li><img src="assets/img/icon/header_icon1.png" alt="">{{Carbon\Carbon::now()->translatedFormat('l, d F Y')}}</li>
+                                    </ul>
+                                </div>
+                                <div class="header-info-right">
+                                    <ul class="header-social">    
+                                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                       <li> <a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </li>
-                        @endforeach
+                       </div>
+                   </div>
                 </div>
-                
-                <!-- Categories -->
-                <div class="popular-posts">
-                    <h5 class="sidebar-title">Kategori Berita</h5>
-                    
-                    <ul class="categories-list">
-                         @php
-                            $kategoriList = \App\Models\Kategori::all();
-                        @endphp
-                        @foreach ($kategoriList as $kat)
-                            <li><a href="{{ route('web.kategori', $kat->id) }}">{{ $kat->nama }}</a></li>
-                        @endforeach
-                        
-                    </ul>
+                <div class="header-mid d-none d-md-block">
+                   <div class="container">
+                        <div class="row d-flex align-items-center">
+                            <!-- Logo -->
+                            <div class="col-xl-3 col-lg-3 col-md-3">
+                                <div class="logo">
+                                    <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-9">
+                                <div class="header-banner f-right ">
+                                    <img src="assets/img/hero/header_card.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                   </div>
                 </div>
-                
-              
+               <div class="header-bottom header-sticky">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
+                                <!-- sticky -->
+                                    <div class="sticky-logo">
+                                        <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                                    </div>
+                                <!-- Main-menu -->
+                                <div class="main-menu d-none d-md-block">
+                                    <nav>                  
+                                        <ul id="navigation">    
+                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="categori.html">Category</a></li>
+                                            <li><a href="about.html">About</a></li>
+                                            <li><a href="latest_news.html">Latest News</a></li>
+                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="#">Pages</a>
+                                                <ul class="submenu">
+                                                    <li><a href="elements.html">Element</a></li>
+                                                    <li><a href="blog.html">Blog</a></li>
+                                                    <li><a href="single-blog.html">Blog Details</a></li>
+                                                    <li><a href="details.html">Categori Details</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>             
+                            <div class="col-xl-2 col-lg-2 col-md-4">
+                                <div class="header-right-btn f-right d-none d-lg-block">
+                                    <i class="fas fa-search special-tag"></i>
+                                    <div class="search-box">
+                                        <form action="#">
+                                            <input type="text" placeholder="Search">
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Mobile Menu -->
+                            <div class="col-12">
+                                <div class="mobile_menu d-block d-md-none"></div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
             </div>
-        </div>
-    </div>
+       </div>
+        <!-- Header End -->
+    </header>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <main>
+    <!-- Trending Area Start -->
+    <div class="trending-area fix">
         <div class="container">
-            <div class="row">
-                <div class="col-md-4 mb-4 mb-md-0">
-                    <h5 class="footer-title">Tentang Kami</h5>
-                    <p>PortalBerita adalah platform berita online yang menyajikan informasi terkini dan terpercaya seputar politik, ekonomi, teknologi, hiburan dan olahraga.</p>
-                    <div class="social-icons mt-4">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+            <div class="trending-main">
+                <!-- Trending Tittle -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="trending-tittle">
+                            <strong>Berita Terupdate</strong>
+                            <!-- <p>Rem ipsum dolor sit amet, consectetur adipisicing elit.</p> -->
+                            <div class="trending-animated">
+                                <ul id="js-news" class="js-hidden">
+                                    <li class="news-item">halo mas</li>
+                                    <li class="news-item">silahkan baca berita terupdate</li>
+                                    <li class="news-item">enjoy</li>
+                                </ul>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-2 mb-4 mb-md-0">
-                    <h5 class="footer-title">Kategori</h5>
-                    <ul class="footer-links">
-                        <li><a href="#">Politik</a></li>
-                        <li><a href="#">Ekonomi</a></li>
-                        <li><a href="#">Teknologi</a></li>
-                        <li><a href="#">Hiburan</a></li>
-                        <li><a href="#">Olahraga</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-2 mb-4 mb-md-0">
-                    <h5 class="footer-title">Perusahaan</h5>
-                    <ul class="footer-links">
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="#">Tim Redaksi</a></li>
-                        <li><a href="#">Kontak</a></li>
-                        <li><a href="#">Karir</a></li>
-                        <li><a href="#">Kebijakan Privasi</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5 class="footer-title">Kontak Kami</h5>
-                    <p><i class="fas fa-map-marker-alt me-2"></i> Jl. Sudirman No. 100, Jakarta Selatan</p>
-                    <p><i class="fas fa-phone me-2"></i> (021) 12345678</p>
-                    <p><i class="fas fa-envelope me-2"></i> info@portalberita.com</p>
-                    <div class="mt-4">
-                        <img src="https://placehold.co/120x40" alt="Google Play download badge" class="me-2 mb-2">
-                        <img src="https://placehold.co/120x40" alt="App Store download badge">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="copyright">
-            <div class="container">
-                <p class="mb-0">© 2023 PortalBerita. Hak Cipta Dilindungi.</p>
-            </div>
-        </div>
-    </footer>
+                <div class="row">
+                    <div class="col-lg-8">
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    
-</body>
+                @yield('content')
+
+      
+    </main>
+   
+	<!-- JS here -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	
+		<!-- All JS Custom Plugins Link Here here -->
+        <script src="{{asset('./assets/demo/js/vendor/modernizr-3.5.0.min.js')}}"></script>
+		<!-- Jquery, Popper, Bootstrap -->
+		<script src="{{asset('./assets/demo/js/vendor/jquery-1.12.4.min.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/popper.min.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/bootstrap.min.js')}}"></script>
+	    <!-- Jquery Mobile Menu -->
+        <script src="{{asset('./assets/demo/js/jquery.slicknav.min.js')}}"></script>
+
+		<!-- Jquery Slick , Owl-Carousel Plugins -->
+        <script src="{{asset('./assets/demo/js/owl.carousel.min.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/slick.min.js')}}"></script>
+        <!-- Date Picker -->
+        <script src="{{asset('./assets/demo/js/gijgo.min.js')}}"></script>
+		<!-- One Page, Animated-HeadLin -->
+        <script src="{{asset('./assets/demo/js/wow.min.js')}}"></script>
+		<script src="{{asset('./assets/demo/js/animated.headline.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/jquery.magnific-popup.js')}}"></script>
+
+        <!-- Breaking New Pluging -->
+        <script src="{{asset('./assets/demo/js/jquery.ticker.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/site.js')}}"></script>
+
+		<!-- Scrollup, nice-select, sticky -->
+        <script src="{{asset('./assets/demo/js/jquery.scrollUp.min.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/jquery.nice-select.min.js')}}"></script>
+		<script src="{{asset('./assets/demo/js/jquery.sticky.js')}}"></script>
+        
+        <!-- contact js -->
+        <script src="{{asset('./assets/demo/js/contact.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/jquery.form.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/jquery.validate.min.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/mail-script.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/jquery.ajaxchimp.min.js')}}"></script>
+        
+		<!-- Jquery Plugins, main Jquery -->	
+        <script src="{{asset('./assets/demo/js/plugins.js')}}"></script>
+        <script src="{{asset('./assets/demo/js/main.js')}}"></script>
+        
+    </body>
 </html>
